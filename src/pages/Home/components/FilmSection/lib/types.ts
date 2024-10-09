@@ -1,12 +1,9 @@
-//Core
-import { Movie } from "../../../../../Types/Types"; 
+import { Movie } from "../../../../../Types/Types";
 
-// Types
-export default interface FilmSectionProps {
+export interface FilmSectionProps {
     title: string;
     viewMoreLink: string;
     mediaType: string;
-    data: Movie[];  // Cần chỉnh lại cho đúng với kiểu dữ liệu của API
-    isLoading: boolean; // Thêm isLoading
-  }
-  
+    data: Movie[]; // Đảm bảo kiểu dữ liệu chính xác
+    isLoading: boolean; // Thêm trạng thái isLoading
+}
