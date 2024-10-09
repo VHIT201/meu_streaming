@@ -7,8 +7,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import FilmItem from '../../../../components/FilmItem'; 
 import Spinner from '../../../../components/Spinner/Spinner';
 
-import FilmSectionProps from './lib/types';
-
+import { FilmSectionProps } from './lib/types';
 // Component: FilmSection
 const FilmSection: React.FC<FilmSectionProps> = ({
   title, 
