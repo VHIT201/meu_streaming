@@ -1,8 +1,8 @@
 import React from 'react';
 import FilmItem from "../../components/FilmItem";
-
+import { Movie } from '@/Types/Types';
 interface MoviesGridProps {
-  movies: Array<any>; // Replace `any` with the proper movie type
+  movies: Movie[]; // Replace `any` with the proper movie type
 }
 
 const MoviesGrid: React.FC<MoviesGridProps> = ({ movies }) => (

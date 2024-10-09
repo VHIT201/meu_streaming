@@ -42,7 +42,7 @@ export interface Language {
 export interface FilmDetails {
   adult: boolean;
   backdrop_path: string | null;
-  belongs_to_collection: null | any; 
+  // belongs_to_collection: null | any; 
   budget: number;
   genres: Genre[];
   homepage: string;

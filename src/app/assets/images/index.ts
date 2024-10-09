@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import logo from './tmovie_logo.png';
+
 import footerImg from './footer_bg.jpg';
 import default_image from './default_image.png';
 import meu_logo from './logo_meu.png'
