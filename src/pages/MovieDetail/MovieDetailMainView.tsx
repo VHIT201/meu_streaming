@@ -11,16 +11,16 @@ const MovieDetailMainView: React.FC = () => {
   const router = useRouter();
   const { id, media_type } = router.query;
 
-  // Use the custom hook to fetch movie details
+  // Sử dụng custom hook để fetch thông tin phim
   const { filmDetails, videos, similarFilms, credits, loading, error } =
     useMovieDetailContainer(id as string, media_type as string);
 
-  // Check if id or media_type is undefined
+  // Kiểm tra nếu id hoặc media_type là undefined
   if (typeof id !== "string" || typeof media_type !== "string") {
-    return <div>Movie information not available.</div>;
+    return <div>Thông tin phim không có sẵn.</div>;
   }
 
-  // Loading state
+  // Trạng thái loading
   if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -29,18 +29,18 @@ const MovieDetailMainView: React.FC = () => {
     );
   }
 
-  // Error handling
+  // Xử lý lỗi
   if (error) {
     return (
       <div className="text-white text-opacity-50 text-2xl h-[70vh] flex items-center justify-center">
-        Error loading movie details. Please try again later.
+        Lỗi khi tải thông tin phim. Vui lòng thử lại sau.
       </div>
     );
   }
 
-  // No film details
+  // Không có chi tiết phim
   if (!filmDetails || Object.keys(filmDetails).length === 0) {
-    return <div>No details available</div>;
+    return <div>Không có chi tiết nào.</div>;
   }
 
   return (
@@ -60,7 +60,7 @@ const MovieDetailMainView: React.FC = () => {
   );
 };
 
-// Hero section for displaying film details and cast
+// Hero section để hiển thị chi tiết phim và dàn diễn viên
 const HeroSection: React.FC<{
   filmDetails: FilmDetails;
   credits: Credits | null;
@@ -88,17 +88,13 @@ const HeroSection: React.FC<{
           {filmDetails.title}
         </h2>
         <div className="py-4 flex flex-wrap items-center -mx-1">
-          {filmDetails.genres?.map(
-            (
-              genre // Thêm dấu hỏi để kiểm tra genres có tồn tại không
-            ) => (
-              <div className="px-1 mb-4" key={genre.id}>
-                <span className="bg-black-main px-4 py-1 border-2 border-white rounded-full text-white text-xs lg:text-sm">
-                  {genre.name}
-                </span>
-              </div>
-            )
-          )}
+          {filmDetails.genres?.map((genre) => (
+            <div className="px-1 mb-4" key={genre.id}>
+              <span className="bg-black-main px-4 py-1 border-2 border-white rounded-full text-white text-xs lg:text-sm">
+                {genre.name}
+              </span>
+            </div>
+          ))}
         </div>
         <p className="py-2 lg:py-4 text-white text-xs md:text-sm lg:text-base text-left">
           {filmDetails.overview}
@@ -106,33 +102,27 @@ const HeroSection: React.FC<{
         <div className="py-2 lg:py-4 text-left">
           <h3 className="text-white text-xl font-medium">Casts</h3>
           <div className="flex flex-wrap -mx-2 mt-1">
-            {credits?.cast?.slice(0, 5).map(
-              (
-                item // Thêm dấu hỏi để kiểm tra cast có tồn tại không
-              ) => (
-                <div className="w-28 px-2 mb-1" key={item.id}>
-                  <Image
-                    src={Config.imgPath + item.profile_path}
-                    className="rounded-xl"
-                    alt={item.name}
-                    width={100}
-                    height={150}
-                  />
-                  <span className="text-white text-xs md:text-sm font-sm">
-                    {item.name}
-                  </span>
-                </div>
-              )
-            )}
+            {credits?.cast.slice(0, 5).map((item) => (
+              <div className="w-28 px-2 mb-1" key={item.id}>
+                <Image
+                  src={Config.imgPath + item.profile_path}
+                  className="rounded-xl"
+                  alt={item.name}
+                  width={100}
+                  height={150}
+                />
+                <span className="text-white text-xs md:text-sm font-sm">
+                  {item.name}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
         <div className="py-4">
           <button
             className="btn-lg btn-primary"
             onClick={() =>
-              router.push(
-                `/watch?id=${filmDetails.id}&media_type=${media_type}`
-              )
+              router.push(`/watch?id=${filmDetails.id}&media_type=${media_type}`)
             }
           >
             Watch now
@@ -157,7 +147,7 @@ const VideosSection: React.FC<{ videos: Video[] }> = ({ videos }) => {
             Videos
           </h3>
           <span className="text-2xl font-bold text-white opacity-50">
-            There are no videos related to this movie.
+            Không có video nào liên quan đến bộ phim này.
           </span>
         </div>
       </div>
@@ -192,7 +182,7 @@ const SimilarMoviesSection: React.FC<{
 }> = ({ similarFilms, media_type }) => (
   <div className="px-4 w-full md:px-8 lg:px-16 pb-16 mt-16 text-left">
     <h3 className="text-white text-base md:text-2xl font-semibold mb-4">
-      Similar
+      Phim tương tự
     </h3>
     {similarFilms.length > 0 ? (
       <div className="flex flex-wrap -mx-2">
@@ -228,7 +218,7 @@ const SimilarMoviesSection: React.FC<{
       </div>
     ) : (
       <span className="text-2xl font-bold text-white opacity-50">
-        There are no movies related to this movie.
+        Không có phim nào liên quan đến bộ phim này.
       </span>
     )}
   </div>

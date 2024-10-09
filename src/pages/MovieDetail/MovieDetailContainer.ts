@@ -7,9 +7,8 @@ const useMovieDetailContainer = (id: string, mediaType: string) => {
     queryKey: ['filmDetails', id],
     queryFn: async () => {
       const response = await apiClient.get(`${mediaType}/${id}?language=en-US`);
-      return response.data; // Trả về response.data thay vì response.data.results
+      return response.data; // Trả về response.data
     },
-
   });
 
   // Truy vấn video
