@@ -119,7 +119,7 @@ const HomeMainView: React.FC = () => {
   // Queries: Fetch videos when videoId is set using the custom hook
   const {
     data: videos = [],
-    isLoading: isVideosLoading, // Nếu cần sử dụng trạng thái loading
+    // isLoading: isVideosLoading, 
     error: videosError,
   } = useFetchVideos(videoId!);
 
