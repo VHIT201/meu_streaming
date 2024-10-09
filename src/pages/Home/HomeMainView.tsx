@@ -12,7 +12,7 @@ import Modal from "./components/Modal/Modal";
 import apiClient from "../../services/apiServices/apiServices";
 
 // Component: Types
-import { SwiperData } from "./lib/types";
+import { SwiperData } from "@/Types/Types";
 
 // Component: Spinner
 import Spinner from "../../components/Spinner/Spinner";

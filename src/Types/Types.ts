@@ -142,3 +142,19 @@ export interface Credits {
 }
 
 
+export interface FilmSectionProps {
+  title: string;
+  viewMoreLink: string;
+  mediaType: string;
+  data: Movie[]; // Đảm bảo kiểu dữ liệu chính xác
+  isLoading: boolean; // Thêm trạng thái isLoading
+}
+
+
+export interface SwiperData {
+  title: string;
+  data: Movie[];
+  viewMoreLink: string;
+  media_type: string;
+  isLoading: boolean;
+}
