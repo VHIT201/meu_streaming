@@ -5,19 +5,20 @@ import Config from "../../configuration";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import FilmItem from "../../components/FilmItem";
+import Image from "next/image";
 
 const MovieDetailMainView: React.FC = () => {
   const router = useRouter();
   const { id, media_type } = router.query;
 
+  // Use the custom hook to fetch movie details
+  const { filmDetails, videos, similarFilms, credits, loading, error } =
+    useMovieDetailContainer(id as string, media_type as string);
+
   // Check if id or media_type is undefined
   if (!id || !media_type) {
     return <div>Movie information not available.</div>;
   }
-
-  // Use the custom hook to fetch movie details
-  const { filmDetails, videos, similarFilms, credits, loading, error } =
-    useMovieDetailContainer(id as string, media_type as string);
 
   // Loading state
   if (loading) {
@@ -45,7 +46,7 @@ const MovieDetailMainView: React.FC = () => {
       <HeroSection
         filmDetails={filmDetails}
         credits={credits}
-        router={router}  // Truyền router xuống HeroSection
+        router={router} // Truyền router xuống HeroSection
         media_type={media_type as string}
       />
       <VideosSection videos={videos} />
@@ -62,7 +63,7 @@ const HeroSection: React.FC<{
   filmDetails: FilmDetails;
   credits: Credits | null;
   router: ReturnType<typeof useRouter>; // Nhận router từ props
-  media_type: string;  // Nhận media_type từ props
+  media_type: string; // Nhận media_type từ props
 }> = ({ filmDetails, credits, router, media_type }) => (
   <div
     className='relative w-full px-4 md:px-8 lg:px-16 py-12 md:pt-32 md:pb-20 bg-center bg-no-repeat bg-cover z-0 before:content-[""] before:absolute before:bottom-0 before:left-0 before:right-0 before:h-1/2 before:bg-black-main before:-z-10 after:content-[""] after:absolute after:top-0 after:left-0 after:right-0 after:h-1/2 after:bg-gradient-to-t after:from-black-main after:to-transparent after:-z-10'
@@ -72,10 +73,12 @@ const HeroSection: React.FC<{
   >
     <div className="flex items-start -mx-4 max-h-fit">
       <div className="hidden md:block w-64 lg:w-96 px-4">
-        <img
+        <Image
           src={`https://image.tmdb.org/t/p/w500${filmDetails.poster_path}`}
           alt={filmDetails.title}
           className="w-full rounded-3xl"
+          width={500}
+          height={750}
         />
       </div>
       <div className="px-4 flex-1 flex flex-col items-start justify-between -my-2 lg:-my-4">
@@ -99,10 +102,12 @@ const HeroSection: React.FC<{
           <div className="flex flex-wrap -mx-2 mt-1">
             {credits?.cast.slice(0, 5).map((item) => (
               <div className="w-28 px-2 mb-1" key={item.id}>
-                <img
+                <Image
                   src={Config.imgPath + item.profile_path}
                   className="rounded-xl"
                   alt={item.name}
+                  width={100}
+                  height={150}
                 />
                 <span className="text-white text-xs md:text-sm font-sm">
                   {item.name}
@@ -193,9 +198,9 @@ const SimilarMoviesSection: React.FC<{
             768: { slidesPerView: 4 },
             1024: { slidesPerView: 6 },
           }}
-          className="w-full"
+          className="relative w-full"
         >
-          {similarFilms.map((movie) => (
+          {similarFilms.map((movie => (
             <SwiperSlide key={movie.id}>
               <FilmItem
                 id={movie.id}
@@ -206,11 +211,13 @@ const SimilarMoviesSection: React.FC<{
                 media_type={media_type}
               />
             </SwiperSlide>
-          ))}
+          )))}
         </Swiper>
       </div>
     ) : (
-      <div className="text-white opacity-50 text-lg">No similar movies found</div>
+      <span className="text-2xl font-bold text-white opacity-50">
+        There are no movies related to this movie.
+      </span>
     )}
   </div>
 );

@@ -17,6 +17,21 @@ import { SwiperData } from "./lib/types";
 // Component: Spinner
 import Spinner from "../../components/Spinner/Spinner";
 
+// Custom Hook: Fetch videos for a specific movie
+const useFetchVideos = (movieId: string) => {
+  return useQuery({
+    queryKey: ["videos", movieId],
+    queryFn: async () => {
+      if (!movieId) return [];
+      const response = await apiClient.get(
+        `/movie/${movieId}/videos?language=en-US`
+      );
+      return response.data.results;
+    },
+    enabled: !!movieId, // Chỉ thực hiện query nếu movieId có giá trị
+  });
+};
+
 // App: Main view component
 const HomeMainView: React.FC = () => {
 
@@ -101,27 +116,12 @@ const HomeMainView: React.FC = () => {
     },
   ];
 
-  // Queries: Fetch videos for a specific movie
-  const fetchVideos = (movieId: string) => {
-    return useQuery({
-      queryKey: ["videos", movieId],
-      queryFn: async () => {
-        if (!movieId) return [];
-        const response = await apiClient.get(
-          `/movie/${movieId}/videos?language=en-US`
-        );
-        return response.data.results;
-      },
-      enabled: !!movieId, // Only run the query if movieId is set
-    });
-  };
-
-  // Queries: Fetch videos when videoId is set
+  // Queries: Fetch videos when videoId is set using the custom hook
   const {
     data: videos = [],
-    isLoading: isVideosLoading,
+    isLoading: isVideosLoading, // Nếu cần sử dụng trạng thái loading
     error: videosError,
-  } = fetchVideos(videoId!);
+  } = useFetchVideos(videoId!);
 
   // Methods: Toggle modal
   const toggleModal = () => {
@@ -137,6 +137,7 @@ const HomeMainView: React.FC = () => {
   const handleWatchNow = (id: number) => {
     router.push(`/movie/${id}`); // Chuyển đến trang chi tiết với id
   };
+
   // UI: Loading or error states
   const loading =
     trendingMoviesQuery.isLoading ||
@@ -166,19 +167,6 @@ const HomeMainView: React.FC = () => {
       />
 
       {/* Component: Render swipers for movies */}
-      {/* {swipersData.map((swiper, index) => (
-        <FilmSection
-          key={index}
-          title={swiper.title}
-          viewMoreLink={swiper.viewMoreLink}
-          mediaType={swiper.media_type}
-          // data={swiper.isLoading ? [] : swiper.data} // Pass empty array if loading
-          data={swiper.data} // Truyền dữ liệu khi đã tải xong
-          isLoading={swiper.isLoading} // Truyền trạng thái isLoading
-          
-        />
-      ))} */}
-      {/* Trending Movies Section */}
       <FilmSection
         title="Trending Movies"
         viewMoreLink="/movie"
@@ -204,7 +192,7 @@ const HomeMainView: React.FC = () => {
         data={trendingTVQuery.data || []}
         isLoading={trendingTVQuery.isLoading}
       />
-  
+
       {/* Top Rated TV Section */}
       <FilmSection
         title="Top Rated TV"
