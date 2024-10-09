@@ -2,7 +2,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import FilmSlide from "../../../../components/FilmSlide";
-import { SwiperData } from "../../lib/types";
+import { SwiperData } from "@/Types/Types";
 import Config from "../../../../configuration";
 
 // Component Props
