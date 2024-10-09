@@ -16,7 +16,7 @@ const MovieDetailMainView: React.FC = () => {
     useMovieDetailContainer(id as string, media_type as string);
 
   // Check if id or media_type is undefined
-  if (!id || !media_type) {
+  if (typeof id !== "string" || typeof media_type !== "string") {
     return <div>Movie information not available.</div>;
   }
 
@@ -39,7 +39,7 @@ const MovieDetailMainView: React.FC = () => {
   }
 
   // No film details
-  if (!filmDetails) {
+  if (!filmDetails || Object.keys(filmDetails).length === 0) {
     return <div>No details available</div>;
   }
 
@@ -88,13 +88,17 @@ const HeroSection: React.FC<{
           {filmDetails.title}
         </h2>
         <div className="py-4 flex flex-wrap items-center -mx-1">
-          {filmDetails.genres?.map((genre) => ( // Thêm dấu hỏi để kiểm tra genres có tồn tại không
-            <div className="px-1 mb-4" key={genre.id}>
-              <span className="bg-black-main px-4 py-1 border-2 border-white rounded-full text-white text-xs lg:text-sm">
-                {genre.name}
-              </span>
-            </div>
-          ))}
+          {filmDetails.genres?.map(
+            (
+              genre // Thêm dấu hỏi để kiểm tra genres có tồn tại không
+            ) => (
+              <div className="px-1 mb-4" key={genre.id}>
+                <span className="bg-black-main px-4 py-1 border-2 border-white rounded-full text-white text-xs lg:text-sm">
+                  {genre.name}
+                </span>
+              </div>
+            )
+          )}
         </div>
         <p className="py-2 lg:py-4 text-white text-xs md:text-sm lg:text-base text-left">
           {filmDetails.overview}
@@ -102,27 +106,33 @@ const HeroSection: React.FC<{
         <div className="py-2 lg:py-4 text-left">
           <h3 className="text-white text-xl font-medium">Casts</h3>
           <div className="flex flex-wrap -mx-2 mt-1">
-            {credits?.cast?.slice(0, 5).map((item) => ( // Thêm dấu hỏi để kiểm tra cast có tồn tại không
-              <div className="w-28 px-2 mb-1" key={item.id}>
-                <Image
-                  src={Config.imgPath + item.profile_path}
-                  className="rounded-xl"
-                  alt={item.name}
-                  width={100}
-                  height={150}
-                />
-                <span className="text-white text-xs md:text-sm font-sm">
-                  {item.name}
-                </span>
-              </div>
-            ))}
+            {credits?.cast?.slice(0, 5).map(
+              (
+                item // Thêm dấu hỏi để kiểm tra cast có tồn tại không
+              ) => (
+                <div className="w-28 px-2 mb-1" key={item.id}>
+                  <Image
+                    src={Config.imgPath + item.profile_path}
+                    className="rounded-xl"
+                    alt={item.name}
+                    width={100}
+                    height={150}
+                  />
+                  <span className="text-white text-xs md:text-sm font-sm">
+                    {item.name}
+                  </span>
+                </div>
+              )
+            )}
           </div>
         </div>
         <div className="py-4">
           <button
             className="btn-lg btn-primary"
             onClick={() =>
-              router.push(`/watch?id=${filmDetails.id}&media_type=${media_type}`)
+              router.push(
+                `/watch?id=${filmDetails.id}&media_type=${media_type}`
+              )
             }
           >
             Watch now
