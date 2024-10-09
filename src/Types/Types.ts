@@ -1,28 +1,25 @@
-export {};
+export {}; // Đánh dấu file này là một module
 
 export interface Movie {
-    adult?: boolean; 
-    backdrop_path?: string;  
-    first_air_date?: Date;  
-    genre_ids?: number[]; 
-    original_title?: string;
-    id: number; 
-    name?: string;
-    media_type?: string;   
-    origin_country?: string[];
-    original_language?:string;
-    original_name?: string | null | undefined; 
-    overview?: string;  
-    popularity?: number;             
-    poster_path: string | null | undefined;
-    vote_average?:number;
-    vote_count?: number      
-  }
+  adult?: boolean; 
+  backdrop_path?: string;  
+  first_air_date?: Date;  
+  genre_ids?: number[]; 
+  original_title?: string;
+  id: number; 
+  name?: string;
+  media_type?: string;   
+  origin_country?: string[];
+  original_language?:string;
+  original_name?: string | null | undefined; 
+  overview?: string;  
+  popularity?: number;             
+  poster_path: string | null | undefined;
+  vote_average?:number;
+  vote_count?: number;
+}
 
-  
-
-
-  // FilmDetails.ts
+// FilmDetails.ts
 export interface Genre {
   id: number;
   name: string;
@@ -44,7 +41,6 @@ export interface Language {
 export interface FilmDetails {
   adult: boolean;
   backdrop_path: string | null;
-  // belongs_to_collection: null | any; 
   budget: number;
   genres: Genre[];
   homepage: string;
@@ -70,7 +66,6 @@ export interface FilmDetails {
   vote_count: number;
 }
 
-
 export interface Video {
   id: string;
   iso_639_1: string;
@@ -84,58 +79,53 @@ export interface Video {
   type: string;
 }
 
-
-
-
 export interface SimilarFilm {
   adult: boolean;
-  backdrop_path: string | null; // can be null if no image
+  backdrop_path: string | null;
   genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
   overview: string;
   popularity: number;
-  poster_path: string | null; // can be null if no image
+  poster_path: string | null;
   release_date: string;
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
   name: string;
-  original_name : string
+  original_name: string;
 }
-
 
 export interface Cast {
   adult: boolean;
-  gender: number; // 0: not specified, 1: female, 2: male
+  gender: number;
   id: number;
   known_for_department: string;
   name: string;
   original_name: string;
   popularity: number;
-  profile_path: string | null; // can be null if no image
+  profile_path: string | null;
   cast_id: number;
   character: string;
   credit_id: string;
-  order: number; // order in the cast list
+  order: number;
 }
 
 export interface Crew {
   adult: boolean;
-  gender: number; // 0: not specified, 1: female, 2: male
+  gender: number;
   id: number;
   known_for_department: string;
   name: string;
   original_name: string;
   popularity: number;
-  profile_path: string | null; // can be null if no image
+  profile_path: string | null;
   credit_id: string;
-  department: string; // department of the crew member
-  job: string; // job title of the crew member
+  department: string;
+  job: string;
 }
-
 
 export interface Credits {
   id: number;
@@ -143,15 +133,13 @@ export interface Credits {
   crew: Crew[];
 }
 
-
 export interface FilmSectionProps {
   title: string;
   viewMoreLink: string;
   mediaType: string;
-  data: Movie[]; // Đảm bảo kiểu dữ liệu chính xác
-  isLoading: boolean; // Thêm trạng thái isLoading
+  data: Movie[];
+  isLoading: boolean;
 }
-
 
 export interface SwiperData {
   title: string;
