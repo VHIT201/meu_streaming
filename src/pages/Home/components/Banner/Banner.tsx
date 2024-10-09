@@ -28,7 +28,7 @@ const HeaderSwiper: React.FC<HeaderSwiperProps> = ({ swipersData, onWatchNow, on
           });
       }}
     >
-      {swipersData[0].data.slice(0, 4).map((movie, index) => (
+      {swipersData[0].data.slice(0, 4).map((movie) => (
         <SwiperSlide key={movie.id}>
           <FilmSlide
             id={movie.id}
