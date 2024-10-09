@@ -5,12 +5,8 @@ import FilmSlide from "../../../../components/FilmSlide";
 import { SwiperData } from "@/Types/Types";
 import Config from "../../../../configuration";
 
+import { HeaderSwiperProps } from "@/Types/Types";
 // Component Props
-interface HeaderSwiperProps {
-  swipersData: SwiperData[];
-  onWatchNow: (id: number) => void;
-  onWatchTrailer: (id: number) => void;
-}
 
 const HeaderSwiper: React.FC<HeaderSwiperProps> = ({ swipersData, onWatchNow, onWatchTrailer }) => {
   return (

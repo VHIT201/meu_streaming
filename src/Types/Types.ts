@@ -148,3 +148,10 @@ export interface SwiperData {
   media_type: string;
   isLoading: boolean;
 }
+
+
+export interface HeaderSwiperProps {
+  swipersData: SwiperData[];
+  onWatchNow: (id: number) => void;
+  onWatchTrailer: (id: number) => void;
+}
