@@ -9,7 +9,7 @@ const useMovieDetailContainer = (id: string, mediaType: string) => {
       const response = await apiClient.get(`${mediaType}/${id}?language=en-US`);
       return response.data; // Trả về response.data thay vì response.data.results
     },
-    // Optional: add staleTime or cacheTime if needed
+
   });
 
   // Truy vấn video
@@ -35,7 +35,7 @@ const useMovieDetailContainer = (id: string, mediaType: string) => {
     queryKey: ['credits', id],
     queryFn: async () => {
       const response = await apiClient.get(`${mediaType}/${id}/credits?language=en-US`);
-      return response.data.cast || []; // Giả định bạn chỉ cần phần cast
+      return response.data || []; // Giả định bạn chỉ cần phần cast
     },
   });
 
