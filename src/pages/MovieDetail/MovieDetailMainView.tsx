@@ -32,7 +32,9 @@ const MovieDetailMainView: React.FC = () => {
   // Error handling
   if (error) {
     return (
-      <div className="text-white text-opacity-50 text-2xl h-[70vh] flex items-center justify-center"></div>
+      <div className="text-white text-opacity-50 text-2xl h-[70vh] flex items-center justify-center">
+        Error loading movie details. Please try again later.
+      </div>
     );
   }
 
@@ -86,7 +88,7 @@ const HeroSection: React.FC<{
           {filmDetails.title}
         </h2>
         <div className="py-4 flex flex-wrap items-center -mx-1">
-          {filmDetails.genres.map((genre) => (
+          {filmDetails.genres?.map((genre) => ( // Thêm dấu hỏi để kiểm tra genres có tồn tại không
             <div className="px-1 mb-4" key={genre.id}>
               <span className="bg-black-main px-4 py-1 border-2 border-white rounded-full text-white text-xs lg:text-sm">
                 {genre.name}
@@ -100,7 +102,7 @@ const HeroSection: React.FC<{
         <div className="py-2 lg:py-4 text-left">
           <h3 className="text-white text-xl font-medium">Casts</h3>
           <div className="flex flex-wrap -mx-2 mt-1">
-            {credits?.cast.slice(0, 5).map((item) => (
+            {credits?.cast?.slice(0, 5).map((item) => ( // Thêm dấu hỏi để kiểm tra cast có tồn tại không
               <div className="w-28 px-2 mb-1" key={item.id}>
                 <Image
                   src={Config.imgPath + item.profile_path}
@@ -200,7 +202,7 @@ const SimilarMoviesSection: React.FC<{
           }}
           className="relative w-full"
         >
-          {similarFilms.map((movie => (
+          {similarFilms.map((movie) => (
             <SwiperSlide key={movie.id}>
               <FilmItem
                 id={movie.id}
@@ -211,7 +213,7 @@ const SimilarMoviesSection: React.FC<{
                 media_type={media_type}
               />
             </SwiperSlide>
-          )))}
+          ))}
         </Swiper>
       </div>
     ) : (

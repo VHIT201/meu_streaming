@@ -13,10 +13,9 @@ const FilmSection: React.FC<FilmSectionProps> = ({
   title, 
   viewMoreLink, 
   mediaType, 
-  data, 
+  data = [], // Khởi tạo data với mảng rỗng nếu không có dữ liệu
   isLoading,
 }) => {
-
   return (
     <div className="bg-black-main w-full px-10 md:px-8 py-6 md:py-0 border-0"> {/* Component: Wrapper */}
       <div className="max-w-screen-2xl mx-auto mb-8"> {/* Component: Container */}
@@ -24,13 +23,15 @@ const FilmSection: React.FC<FilmSectionProps> = ({
           <span className="text-white font-medium text-lg md:text-2xl">
             {title} {/* Hiển thị tiêu đề ngay cả khi đang tải */}
           </span>
-          <a className="btn-sm btn-default" href={viewMoreLink}> {/* Component: Link */}
-            Xem thêm
-          </a>
+          {viewMoreLink && ( // Kiểm tra viewMoreLink trước khi render
+            <a className="btn-sm btn-default" href={viewMoreLink}> {/* Component: Link */}
+              Xem thêm
+            </a>
+          )}
         </div>
         <div className="max-w-screen-2xl mx-auto mt-8"> {/* Component: Swiper Container */}
           {isLoading ? ( // Kiểm tra nếu đang tải
-            <div className='py-20 '>
+            <div className='py-20'>
               <Spinner /> {/* Hiển thị Spinner khi đang tải */}
             </div>
           ) : data.length === 0 ? (

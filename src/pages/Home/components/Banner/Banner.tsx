@@ -8,6 +8,9 @@ import { HeaderSwiperProps } from "@/Types/Types";
 // Component Props
 
 const HeaderSwiper: React.FC<HeaderSwiperProps> = ({ swipersData, onWatchNow, onWatchTrailer }) => {
+  if (!swipersData || !swipersData[0]?.data) {
+    return <div>Loading...</div>; 
+  }
   return (
     <Swiper
       loop
@@ -26,7 +29,7 @@ const HeaderSwiper: React.FC<HeaderSwiperProps> = ({ swipersData, onWatchNow, on
       }}
     >
       {swipersData[0].data.slice(0, 4).map((movie, index) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={movie.id}>
           <FilmSlide
             id={movie.id}
             title={movie.original_title}
