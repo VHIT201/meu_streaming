@@ -1,26 +1,26 @@
 import { useRouter } from "next/router";
 import { FilmDetails, Video, SimilarFilm, Credits } from "../../Types/Types";
-import useMovieDetailContainer from "./MovieDetailContainer";
 import Config from "../../configuration";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import FilmItem from "../../components/FilmItem";
 import Image from "next/image";
+import { useQuery } from '@tanstack/react-query';
+import apiClient from "../../services/apiServices/apiServices";
 
 const MovieDetailMainView: React.FC = () => {
   const router = useRouter();
   const { id, media_type } = router.query;
 
-  // Sử dụng custom hook để fetch thông tin phim
-  const { filmDetails, videos, similarFilms, credits, loading, error } =
-    useMovieDetailContainer(id as string, media_type as string);
+  // Custom hook to fetch movie details
+  const { filmDetails, videos, similarFilms, credits, loading, error } = useMovieDetailContainer(id as string, media_type as string);
 
-  // Kiểm tra nếu id hoặc media_type là undefined
+  // Check if id or media_type is undefined
   if (typeof id !== "string" || typeof media_type !== "string") {
     return <div>Thông tin phim không có sẵn.</div>;
   }
 
-  // Trạng thái loading
+  // Loading state
   if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -29,7 +29,7 @@ const MovieDetailMainView: React.FC = () => {
     );
   }
 
-  // Xử lý lỗi
+  // Error handling
   if (error) {
     return (
       <div className="text-white text-opacity-50 text-2xl h-[70vh] flex items-center justify-center">
@@ -38,7 +38,7 @@ const MovieDetailMainView: React.FC = () => {
     );
   }
 
-  // Không có chi tiết phim
+  // No film details available
   if (!filmDetails || Object.keys(filmDetails).length === 0) {
     return <div>Không có chi tiết nào.</div>;
   }
@@ -48,7 +48,7 @@ const MovieDetailMainView: React.FC = () => {
       <HeroSection
         filmDetails={filmDetails}
         credits={credits}
-        router={router} // Truyền router xuống HeroSection
+        router={router} // Pass router to HeroSection
         media_type={media_type as string}
       />
       <VideosSection videos={videos} />
@@ -60,12 +60,65 @@ const MovieDetailMainView: React.FC = () => {
   );
 };
 
-// Hero section để hiển thị chi tiết phim và dàn diễn viên
+// Custom hook to fetch movie details
+const useMovieDetailContainer = (id: string, mediaType: string) => {
+  // Fetch movie details
+  const { data: filmDetails, isLoading: isFilmDetailsLoading, error: filmDetailsError } = useQuery({
+    queryKey: ['filmDetails', id],
+    queryFn: async () => {
+      const response = await apiClient.get(`${mediaType}/${id}?language=en-US`);
+      return response.data; // Return response.data
+    },
+  });
+
+  // Fetch videos
+  const { data: videos = [], isLoading: isVideosLoading, error: videosError } = useQuery({
+    queryKey: ['videos', id],
+    queryFn: async () => {
+      const response = await apiClient.get(`${mediaType}/${id}/videos?language=en-US`);
+      return response.data.results || []; // Ensure an empty array is returned if no results
+    },
+  });
+
+  // Fetch similar films
+  const { data: similarFilms = [], isLoading: isSimilarFilmsLoading, error: similarFilmsError } = useQuery({
+    queryKey: ['similarFilms', id],
+    queryFn: async () => {
+      const response = await apiClient.get(`${mediaType}/${id}/similar?language=en-US&page=1`);
+      return response.data.results || []; // Ensure an empty array is returned if no results
+    },
+  });
+
+  // Fetch credits
+  const { data: credits = [], isLoading: isCreditsLoading, error: creditsError } = useQuery({
+    queryKey: ['credits', id],
+    queryFn: async () => {
+      const response = await apiClient.get(`${mediaType}/${id}/credits?language=en-US`);
+      return response.data || []; // Assuming you only need the cast part
+    },
+  });
+
+  // Loading state
+  const loading = isFilmDetailsLoading || isVideosLoading || isSimilarFilmsLoading || isCreditsLoading;
+  // Error handling: Return an array of errors for easier processing if needed
+  const error = filmDetailsError || videosError || similarFilmsError || creditsError;
+
+  return {
+    filmDetails,
+    videos,
+    similarFilms,
+    credits,
+    loading,
+    error,
+  };
+};
+
+// Hero section to display movie details and cast
 const HeroSection: React.FC<{
   filmDetails: FilmDetails;
   credits: Credits | null;
-  router: ReturnType<typeof useRouter>; // Nhận router từ props
-  media_type: string; // Nhận media_type từ props
+  router: ReturnType<typeof useRouter>; // Get router from props
+  media_type: string; // Get media_type from props
 }> = ({ filmDetails, credits, router, media_type }) => (
   <div
     className='relative w-full px-4 md:px-8 lg:px-16 py-12 md:pt-32 md:pb-20 bg-center bg-no-repeat bg-cover z-0 before:content-[""] before:absolute before:bottom-0 before:left-0 before:right-0 before:h-1/2 before:bg-black-main before:-z-10 after:content-[""] after:absolute after:top-0 after:left-0 after:right-0 after:h-1/2 after:bg-gradient-to-t after:from-black-main after:to-transparent after:-z-10'
