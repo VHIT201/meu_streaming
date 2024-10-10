@@ -9,7 +9,6 @@ import { FaTh, FaBell } from "react-icons/fa";
 import HeaderSwiper from "./components/Banner/Banner";
 import FilmSection from "./components/FilmSection/FilmSection";
 import Modal from "./components/Modal/Modal";
-import Footer from "@/components/Footer";
 import { Movie } from "@/Types/Types";
 import MovieCard from "@/components/MovieCard/MovieCard";
 // Internal (Client)
@@ -19,13 +18,13 @@ import { SwiperData } from "@/Types/Types";
 
 const HomeMainView: React.FC = () => {
   const router = useRouter();
-  const { theme, toggleDarkMode } = useDarkMode();
+  const {  toggleDarkMode } = useDarkMode();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [videoId, setVideoId] = useState<string | null>(null);
 
-  const handleLogoClick = () => {
-    setIsSidebarOpen((prev) => !prev);
-  };
+  // const handleLogoClick = () => {
+  //   setIsSidebarOpen((prev) => !prev);
+  // };
 
   // Custom Hook: Fetch videos for a specific movie
   const useFetchVideos = (movieId: string) => {
@@ -121,7 +120,7 @@ const HomeMainView: React.FC = () => {
   const {
     data: videos = [],
     // isLoading: isVideosLoading,
-    error: videosError,
+    // error: videosError,
   } = useFetchVideos(videoId!);
 
   // Methods: Toggle modal
