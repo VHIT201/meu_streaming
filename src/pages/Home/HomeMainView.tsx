@@ -19,9 +19,8 @@ import { SwiperData } from "@/Types/Types";
 const HomeMainView: React.FC = () => {
   const router = useRouter();
   const {  toggleDarkMode } = useDarkMode();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [videoId, setVideoId] = useState<string | null>(null);
-
+  const isSidebarOpen : boolean = true
   // const handleLogoClick = () => {
   //   setIsSidebarOpen((prev) => !prev);
   // };
