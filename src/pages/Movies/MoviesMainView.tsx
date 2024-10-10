@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import apiClient from '../../services/apiServices/apiServices';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Spinner from "../../components/Spinner/Spinner";
-
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 // Component: UI components to display data.
 import FilmItem from "../../components/FilmItem";
 import { useRouter } from 'next/router'; // Sử dụng useRouter từ next/router
@@ -106,6 +107,7 @@ export const MoviesMainView: React.FC = () => {
 
   return (
     <main className="w-full flex flex-col items-center justify-start">
+      <Header/>
       {/* App: Layout structure for the main view */}
       <div className="relative w-full h-48 bg-gradient-to-b from-white to-black">
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-y-0 text-white text-4xl font-bold z-10">
@@ -189,6 +191,7 @@ export const MoviesMainView: React.FC = () => {
           )}
         </div>
       </div>
+      <Footer/>
     </main>
   );
 };

@@ -36,7 +36,7 @@ const FilmItem: React.FC<FilmItemProps> = ({ id, original_title, name, original_
             backgroundImage: `url(${backgroundImage})`, 
           }}
         >
-          <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-4 px-8 bg-red-main rounded-full shadow-btn z-10 text-white text-xl scale-50 opacity-0 transition ease-in-out duration-300 group-hover/poster:opacity-100 group-hover/poster:scale-100 hover:shadow-btn-hover">
+          <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-4 px-8 bg-red-main rounded-full shadow-btn z-10  global-text text-xl scale-50 opacity-0 transition ease-in-out duration-300 group-hover/poster:opacity-100 group-hover/poster:scale-100 hover:shadow-btn-hover">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -50,7 +50,7 @@ const FilmItem: React.FC<FilmItemProps> = ({ id, original_title, name, original_
             </svg>
           </button>
         </div>
-        <h3 className="font-medium text-left text-white text-sm md:text-lg mt-4 transition duration-300 ease-in-out group-hover/container:text-red-main">
+        <h3 className="font-boldtext-left  global-text text-sm md:text-lg mt-4 transition duration-300 ease-in-out group-hover/container:text-red-main">
           {title} 
         </h3>
       </div>

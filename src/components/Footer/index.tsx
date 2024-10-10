@@ -6,7 +6,7 @@ import { Images } from '@/app/assets/images';
 const Footer: React.FC = () => {
   return (
     <div
-      className="h-100 lg:h-120 px-8 py-12 md:p-16 bg-cover bg-no-repeat"
+      className="h-100 w-[100%] lg:h-120 px-8 py-12 md:p-16 bg-cover bg-no-repeat"
       style={{ backgroundImage: `url(${Images.footerImg})` }} // Đảm bảo Images.footerImg là đường dẫn đúng
     >
       <div className="max-w-4xl h-full mx-auto flex flex-col justify-around">
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             height={48} // Cung cấp chiều cao cố định
           />
           <h1 className="text-white font-semibold text-2xl md:text-4xl group-hover:text-red-500 group-hover:transition duration-300">
-            theMovies
+            MeU Movies
           </h1>
         </Link>
         <div className="flex text-white font-semibold text-base md:text-2xl items-start justify-between flex-wrap -mx-2 mt-8 mb-10">

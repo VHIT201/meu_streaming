@@ -17,15 +17,15 @@ const FilmSection: React.FC<FilmSectionProps> = ({
   isLoading,
 }) => {
   return (
-    <div className="bg-black-main w-full px-10 md:px-8 py-6 md:py-0 border-0"> {/* Component: Wrapper */}
+    <div className=" w-full  py-6 md:py-0 border-0"> {/* Component: Wrapper */}
       <div className="max-w-screen-2xl mx-auto mb-8"> {/* Component: Container */}
         <div className="flex items-center justify-between"> {/* Component: Header */}
-          <span className="text-white font-medium text-lg md:text-2xl">
+          <span className=" global-text font-bold text-lg md:text-2xl">
             {title} {/* Hiển thị tiêu đề ngay cả khi đang tải */}
           </span>
           {viewMoreLink && ( // Kiểm tra viewMoreLink trước khi render
-            <a className="btn-sm btn-default" href={viewMoreLink}> {/* Component: Link */}
-              Xem thêm
+            <a className="btn-sm  btn-default btn-more" href={viewMoreLink}> {/* Component: Link */}
+              <span className='global-text'>Xem thêm</span>
             </a>
           )}
         </div>
@@ -35,7 +35,7 @@ const FilmSection: React.FC<FilmSectionProps> = ({
               <Spinner /> {/* Hiển thị Spinner khi đang tải */}
             </div>
           ) : data.length === 0 ? (
-            <p className="text-white">Không có dữ liệu</p> // Hiển thị khi không có dữ liệu
+            <p className=" global-text">Không có dữ liệu</p> // Hiển thị khi không có dữ liệu
           ) : (
             <Swiper
               modules={[Autoplay, Pagination, Navigation]} 

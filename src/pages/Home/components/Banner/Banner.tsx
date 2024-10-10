@@ -13,6 +13,7 @@ const HeaderSwiper: React.FC<HeaderSwiperProps> = ({ swipersData, onWatchNow, on
   }
   return (
     <Swiper
+    style={{borderRadius:20, overflow:"hidden"}}
       loop
       autoplay={{ delay: 3000, disableOnInteraction: true }}
       className="w-full mb-0 p-0"
