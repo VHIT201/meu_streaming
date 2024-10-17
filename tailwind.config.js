@@ -6,7 +6,8 @@ content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/pages/Home/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/FilmSlide/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/components/FilmSlide/**/*.{js,ts,jsx,tsx,mdx}",
+    
   ],
   theme: {
     extend: {
